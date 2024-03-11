@@ -1,51 +1,33 @@
 #include <iostream>
-#include <cmath>
+#include <vector>
 using namespace std;
 
-long long int print_1(const int n)
-{
-    long long var = 1;
-    for(int i = 0; i<n; i++)
-    {
-        var=var*10 + 1;
-    }
-    return var;
-}
 int main()
 {
-    int N = 1;
+    int N;
+    int pointer = 0;
     int max_N = 0;
-    int number = 0;
-    long long int a = 1;
-    long long int b = 1;
-    for(N = 1; N <= pow(10.0,6); N++)
+    int max_i = 0;
+
+    long long int A = 1;
+    for (N = 2; N < 1000000 && N % 4 != 0 && N % 5 != 0; N++)
     {
-        if(!(N%2==0 || N%5==0))
-        {
-        long long int A = 1;
-        for(int i = 2; i <= N; ++i)
-        {
-            A = (A * 10 + 1) % N;
-            if(A==0)
+            for (int i = 2; i < N; i++)
             {
-                a = print_1(i);
-            }
-            if(A==1)
-            {
-                b = print_1(i-1);
-            }
-            
-            if(a % N==0  || b % N==0)
-            {
-                number = N;
-                if(number > max_N)
+                A = (10 * A + 1) % N;
+                if (A == 0)
                 {
-                    max_N = number;
+                    N = i;
+                    pointer = i;
+               
+                }
+                if (pointer > max_i && N > max_N)
+                {
+                    max_i = pointer;
+                    max_N = N;
                 }
             }
-        }
-        }
     }
-    cout << "Maximum N: " << max_N << std::flush;
+    cout << max_N;
     return 0;
 }
